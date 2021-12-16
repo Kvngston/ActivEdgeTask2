@@ -9,12 +9,14 @@ import java.util.Collection;
 
 @Entity
 @Data
+@Table(name = "tbl_users")
 public class User implements UserDetails {
 
 	@Id
 	@GeneratedValue(strategy = GenerationType.SEQUENCE, generator = "user_generator")
 	@SequenceGenerator(name = "user-generator", sequenceName = "user_seq")
 	private long id;
+
 	private String email;
 	private String password;
 
@@ -26,31 +28,31 @@ public class User implements UserDetails {
 
 	@Override
 	public String getPassword() {
-		return null;
+		return password;
 	}
 
 	@Override
 	public String getUsername() {
-		return null;
+		return email;
 	}
 
 	@Override
 	public boolean isAccountNonExpired() {
-		return false;
+		return true;
 	}
 
 	@Override
 	public boolean isAccountNonLocked() {
-		return false;
+		return true;
 	}
 
 	@Override
 	public boolean isCredentialsNonExpired() {
-		return false;
+		return true;
 	}
 
 	@Override
 	public boolean isEnabled() {
-		return false;
+		return true;
 	}
 }
