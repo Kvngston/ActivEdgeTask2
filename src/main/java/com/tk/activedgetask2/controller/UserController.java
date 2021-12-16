@@ -1,5 +1,6 @@
 package com.tk.activedgetask2.controller;
 
+import com.tk.activedgetask2.entity.User;
 import com.tk.activedgetask2.entity.dto.AuthRequest;
 import com.tk.activedgetask2.entity.dto.AuthResponse;
 import com.tk.activedgetask2.entity.dto.Response;
@@ -30,5 +31,15 @@ public class UserController {
 		return new ResponseEntity<>(response, HttpStatus.OK);
 	}
 
+	@PostMapping("/addUser")
+	public ResponseEntity<?> addUser(@RequestBody @Valid AuthRequest request){
+		var response = new Response<User>();
+		userService.addUser(request);
+		response.setResponseCode("00");
+		response.setModelList(null);
+		response.setResponseMessage("User Added");
+		response.setErrors(null);
+		return new ResponseEntity<>(response, HttpStatus.OK);
+	}
 
 }

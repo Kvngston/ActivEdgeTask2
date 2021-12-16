@@ -2,6 +2,7 @@ package com.tk.activedgetask2;
 
 import com.tk.activedgetask2.entity.User;
 import com.tk.activedgetask2.repository.UserRepository;
+import lombok.SneakyThrows;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.CommandLineRunner;
 import org.springframework.boot.SpringApplication;
@@ -22,11 +23,14 @@ public class ActivEdgeTask2Application implements CommandLineRunner {
 	}
 
 	@Override
-	public void run(String... args) throws Exception {
+	@SneakyThrows
+	public void run(String... args) {
 
-		var admin = new User();
-		admin.setEmail("tochukwuchinedu21@gmail.com");
-		admin.setPassword(passwordEncoder.encode("currency1234"));
-		userRepository.save(admin);
+		if (userRepository.findByEmail("tochukwuchinedu21@gmail.com") == null){
+			var admin = new User();
+			admin.setEmail("tochukwuchinedu21@gmail.com");
+			admin.setPassword(passwordEncoder.encode("currency1234"));
+			userRepository.save(admin);
+		}
 	}
 }

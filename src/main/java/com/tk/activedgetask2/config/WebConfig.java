@@ -38,7 +38,7 @@ public class WebConfig extends WebSecurityConfigurerAdapter {
 	@Override
 	protected void configure(HttpSecurity http) throws Exception {
 		http.csrf().disable()
-				.authorizeRequests().antMatchers("/users/**").permitAll()
+				.authorizeRequests().antMatchers("/users/**", "/swagger-ui/**", "/swagger-ui.html", "/v3/api-docs/**").permitAll()
 				.and()
 				.exceptionHandling()
 				.authenticationEntryPoint(new CustomEntryPoint())
