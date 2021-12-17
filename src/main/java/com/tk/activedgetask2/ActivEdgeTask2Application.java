@@ -29,7 +29,7 @@ public class ActivEdgeTask2Application implements CommandLineRunner {
 		if (userRepository.findByEmail("tochukwuchinedu21@gmail.com") == null){
 			var admin = new User();
 			admin.setEmail("tochukwuchinedu21@gmail.com");
-			admin.setPassword(passwordEncoder.encode("currency1234"));
+			admin.setPassword(passwordEncoder.encode("test1234"));
 			userRepository.save(admin);
 		}
 	}
