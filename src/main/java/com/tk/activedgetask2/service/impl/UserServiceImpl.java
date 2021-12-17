@@ -4,6 +4,7 @@ import com.tk.activedgetask2.entity.User;
 import com.tk.activedgetask2.entity.dto.AuthRequest;
 import com.tk.activedgetask2.entity.dto.AuthResponse;
 import com.tk.activedgetask2.exception.SecurityException;
+import com.tk.activedgetask2.exception.UptimeException;
 import com.tk.activedgetask2.repository.UserRepository;
 import com.tk.activedgetask2.security.CustomUserDetailsService;
 import com.tk.activedgetask2.service.UserService;
@@ -14,6 +15,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.authentication.AuthenticationManager;
 import org.springframework.security.authentication.BadCredentialsException;
 import org.springframework.security.authentication.UsernamePasswordAuthenticationToken;
+import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.stereotype.Service;
 
 @Service
@@ -27,6 +29,9 @@ public class UserServiceImpl implements UserService {
 
 	@Autowired
 	private UserRepository userRepository;
+
+	@Autowired
+	private BCryptPasswordEncoder passwordEncoder;
 
 	@Autowired
 	private ModelMapper modelMapper;
@@ -51,7 +56,11 @@ public class UserServiceImpl implements UserService {
 
 	@Override
 	public void addUser(AuthRequest request) {
+		if (userRepository.findByEmail(request.getEmail()) != null)
+			throw new UptimeException("User with email already exists");
+
 		var user = modelMapper.map(request, User.class);
+		user.setPassword(passwordEncoder.encode(request.getPassword()));
 		userRepository.save(user);
 	}
 }

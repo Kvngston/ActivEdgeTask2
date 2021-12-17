@@ -6,6 +6,7 @@ import org.springframework.boot.test.context.SpringBootTest;
 @SpringBootTest
 class ActivEdgeTask2ApplicationTests {
 
+
 	@Test
 	void contextLoads() {
 	}
